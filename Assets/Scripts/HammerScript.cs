@@ -17,7 +17,7 @@ public class HammerScript : MonoBehaviour {
     // Use this for initialization
     void Start () {
         sr = gameObject.GetComponent<SpriteRenderer>();
-        //gameObject.SetActive(false);
+        transform.gameObject.SetActive(false);
         //GameObject.FindWithTag("Hammer").SetActive(false);
         sr.enabled = false;
     }
@@ -36,7 +36,7 @@ public class HammerScript : MonoBehaviour {
     {
         if (CheckHammerInput())
         {
-            //gameObject.SetActive(true);
+            transform.gameObject.SetActive(true);
             GameObject.FindWithTag("Hammer").SetActive(true);
             sr.enabled = true;
             lastHammerTime = Time.time;
@@ -51,12 +51,12 @@ public class HammerScript : MonoBehaviour {
         for (int i = 0; i < 10; i++)
         {
             yield return new WaitForSeconds(0.01f);
-            transform.rotation = Quaternion.AngleAxis(facing * -i * 10, Vector3.forward);
+            transform.rotation = Quaternion.AngleAxis(-i * 10, Vector3.forward);
             //transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(1, 0, 1), 0.01f);
         }
         yield return new WaitForSeconds(0.5f);
         sr.enabled = false;
-        //gameObject.SetActive(false);
+        transform.gameObject.SetActive(false);
         //GameObject.FindWithTag("Hammer").SetActive(false);
 
         //while (transform.rotation.z < 90)
