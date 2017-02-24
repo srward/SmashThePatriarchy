@@ -20,5 +20,6 @@ public class PlatformerInputModule : MonoBehaviour
         }
         controller.input = input;
 		controller.inputJump = Input.GetButtonDown("Jump");
+        controller.hammer.inputHammer = Input.GetButtonDown("Fire1");
     }
 }

@@ -5,16 +5,19 @@ using UnityEngine;
 [RequireComponent (typeof(Rigidbody2D))]
 public class PlatformerController : MonoBehaviour
 {
+    public HammerScript hammer;
 	public Vector2 input;
 	public bool inputJump;
+    public bool inputHammer = false;
 
-	public float speed = 5;
+    public float speed = 5;
 	public float jumpVelocity = 15;
 	public float gravity = 40;
 	public float groundingTolerance = .1f;
 	public float jumpingTolerance = .1f;
+    
 
-	public CircleCollider2D groundCollider;
+    public CircleCollider2D groundCollider;
 	public LayerMask groundLayers;
 
 	bool grounded;
@@ -27,12 +30,14 @@ public class PlatformerController : MonoBehaviour
 	float lastInputJump;
 	int facing = 1;
 
-	void Start ()
+    void Start ()
 	{
 		rb2d = GetComponent<Rigidbody2D> ();
 		anim = GetComponent<Animator> ();
 		sr = GetComponent<SpriteRenderer> ();
-	}
+
+        hammer = GameObject.FindWithTag("Hammer").GetComponent<HammerScript>();
+    }
 
 	void FixedUpdate ()
 	{
@@ -41,7 +46,8 @@ public class PlatformerController : MonoBehaviour
 		if (CheckJumpInput () && PermissionToJump ()) {
 			Jump ();
 		}
-		UpdateAnimations ();
+        SwingHammer();
+        UpdateAnimations ();
 	}
 
 	void ApplyHorizontalInput ()
@@ -68,6 +74,11 @@ public class PlatformerController : MonoBehaviour
 		return false;
 	}
 
+    void SwingHammer ()
+    {
+        hammer.StartSwing();
+    }
+
 	void UpdateAnimations ()
 	{
 		if (rb2d.velocity.x > 0 && facing == -1) {
@@ -75,6 +86,7 @@ public class PlatformerController : MonoBehaviour
 		} else if(rb2d.velocity.x < 0 && facing == 1) {
 			facing = -1;
 		}
+        hammer.facing = facing;
 		sr.flipX = facing == -1 ;
 		anim.SetBool ("grounded", grounded);
 		anim.SetFloat ("speed", Mathf.Abs(rb2d.velocity.x));
