@@ -40,7 +40,7 @@ public class HammerScript : MonoBehaviour {
             GameObject.FindWithTag("Hammer").SetActive(true);
             sr.enabled = true;
             lastHammerTime = Time.time;
-            transform.rotation = Quaternion.AngleAxis(0, Vector3.forward);        
+            transform.rotation = (facing == 1) ? Quaternion.AngleAxis(0, Vector3.forward) : Quaternion.AngleAxis(180, Vector3.forward);        
             StartCoroutine("Swing");
         }     
     }
