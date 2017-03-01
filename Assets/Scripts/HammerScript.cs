@@ -9,7 +9,7 @@ public class HammerScript : MonoBehaviour {
     public bool inputHammer;
     public int facing = 1;
 
-    float lastHammerTime;
+    //float lastHammerTime;
     float lastInputHammer;
 
     SpriteRenderer sr;
