@@ -17,7 +17,7 @@ public class HammerScript : MonoBehaviour {
     // Use this for initialization
     void Start () {
         sr = gameObject.GetComponent<SpriteRenderer>();
-        transform.gameObject.SetActive(false);
+        //transform.gameObject.SetActive(false);
         //GameObject.FindWithTag("Hammer").SetActive(false);
         sr.enabled = false;
     }
@@ -25,7 +25,10 @@ public class HammerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //transform.Rotate(Vector3.forward, 10);
-        sr.flipY = facing == -1;
+        //sr.flipY = facing == -1;
+        Vector3 scale = transform.localScale;
+        scale.x = facing;
+        transform.localScale = scale;
         float x = (facing == -1) ? -0.3f : 0.3f;
         Vector3 newP = transform.localPosition;
         newP.x = x;
@@ -51,7 +54,7 @@ public class HammerScript : MonoBehaviour {
         for (int i = 0; i < 10; i++)
         {
             yield return new WaitForSeconds(0.01f);
-            transform.rotation = Quaternion.AngleAxis(-i * 10, Vector3.forward);
+            transform.rotation = Quaternion.AngleAxis(facing * -i * 10, Vector3.forward);
             //transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(1, 0, 1), 0.01f);
         }
         yield return new WaitForSeconds(0.5f);

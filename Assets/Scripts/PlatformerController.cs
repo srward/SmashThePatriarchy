@@ -39,7 +39,7 @@ public class PlatformerController : MonoBehaviour
         hammer = GameObject.FindWithTag("Hammer").GetComponent<HammerScript>();
     }
 
-	void FixedUpdate ()
+	void Update ()
 	{
 		grounded = CheckGrounded ();
 		ApplyHorizontalInput ();
